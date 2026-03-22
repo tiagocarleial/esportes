@@ -23,17 +23,7 @@ export const footballLeagues = [
 ];
 
 export const sportsEvents = [
-  // JOGOS DE HOJE (2026-03-22)
-  {
-    id: 100,
-    sport: 'futebol',
-    title: 'Vasco vs Fluminense',
-    league: 'Brasileirão Série A',
-    date: '2026-03-22',
-    time: '16:00',
-    channel: 'Globo, Premiere',
-    stadium: 'São Januário - Rio de Janeiro',
-  },
+  // JOGOS DE HOJE (2026-03-22) - OUTROS ESPORTES
   {
     id: 101,
     sport: 'futebol',
