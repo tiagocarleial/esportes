@@ -11,16 +11,28 @@ const Dashboard = ({ events, selectedCategory, categories }) => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
+  const now = new Date();
+
   const isToday = (dateString) => {
     const eventDate = new Date(dateString);
     eventDate.setHours(0, 0, 0, 0);
     return eventDate.getTime() === today.getTime();
   };
 
+  const isPastEvent = (dateString, timeString) => {
+    const eventDateTime = new Date(dateString + ' ' + timeString);
+    return eventDateTime < now;
+  };
+
   // Filter by category (sport type)
-  const filteredEvents = selectedCategory === 'todos'
+  let filteredEvents = selectedCategory === 'todos'
     ? events
     : events.filter(event => event.sport === selectedCategory);
+
+  // Filter out past events ONLY on the main "todos" page
+  if (selectedCategory === 'todos') {
+    filteredEvents = filteredEvents.filter(event => !isPastEvent(event.date, event.time));
+  }
 
   // Filter by sport type when on "todos" page
   const sportFilteredEvents = selectedCategory === 'todos' && selectedSportFilter !== 'all'
