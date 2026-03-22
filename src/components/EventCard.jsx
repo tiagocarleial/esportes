@@ -43,6 +43,13 @@ const EventCard = ({ event, categoryIcon }) => {
             <span className="detail-value">{event.stadium}</span>
           </div>
         )}
+
+        {event.result && (
+          <div className="event-detail result-detail">
+            <span className="detail-label">🏆 Resultado:</span>
+            <span className="detail-value">{event.result}</span>
+          </div>
+        )}
       </div>
     </div>
   );
