@@ -86,6 +86,116 @@
   font-size: 18px;
 }
 
+.league-filter {
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  animation: fadeInDown 0.7s ease;
+}
+
+.league-filter label {
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 600;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.league-select {
+  flex: 1;
+  max-width: 400px;
+  padding: 14px 20px;
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 12px;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.league-select:hover {
+  border-color: rgba(139, 92, 246, 0.5);
+  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.3);
+}
+
+.league-select:focus {
+  border-color: rgba(139, 92, 246, 0.7);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+}
+
+.league-select option {
+  background: #0f172a;
+  color: #ffffff;
+  padding: 12px;
+}
+
+/* Today's Events Section */
+.today-section {
+  margin-bottom: 48px;
+  animation: fadeInDown 0.8s ease;
+}
+
+.today-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  padding: 20px 28px;
+  background: linear-gradient(135deg, rgba(255, 107, 107, 0.2) 0%, rgba(255, 87, 34, 0.2) 100%);
+  border: 2px solid rgba(255, 107, 107, 0.4);
+  border-radius: 16px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 8px 32px rgba(255, 107, 107, 0.3);
+}
+
+.today-header h3 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  text-shadow: 0 2px 8px rgba(255, 107, 107, 0.5);
+}
+
+.today-count {
+  padding: 8px 16px;
+  background: rgba(255, 107, 107, 0.3);
+  border: 1px solid rgba(255, 107, 107, 0.5);
+  border-radius: 20px;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.today-grid {
+  margin-bottom: 0;
+}
+
+/* Section Divider */
+.section-divider {
+  margin: 48px 0 32px;
+  padding: 16px 24px;
+  background: rgba(15, 23, 42, 0.5);
+  border-left: 4px solid rgba(139, 92, 246, 0.6);
+  border-radius: 8px;
+  animation: fadeInDown 0.9s ease;
+}
+
+.section-divider h3 {
+  font-size: 22px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
 .events-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
@@ -161,6 +271,24 @@
   .event-count {
     font-size: 14px;
     padding: 6px 12px;
+  }
+
+  .league-filter {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .league-filter label {
+    font-size: 14px;
+  }
+
+  .league-select {
+    max-width: 100%;
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 14px;
   }
 
   .events-grid {

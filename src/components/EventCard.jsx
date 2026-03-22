@@ -1,7 +1,7 @@
 import React from 'react';
 import './EventCard.css';
 
-const EventCard = ({ event, categoryIcon }) => {
+const EventCard = ({ event, categoryIcon, isToday = false }) => {
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('pt-BR', {
@@ -13,7 +13,7 @@ const EventCard = ({ event, categoryIcon }) => {
   };
 
   return (
-    <div className="event-card">
+    <div className={`event-card ${isToday ? 'event-card-today' : ''}`}>
       <div className="event-header">
         <span className="event-icon">{categoryIcon}</span>
         <span className="event-league">{event.league}</span>
