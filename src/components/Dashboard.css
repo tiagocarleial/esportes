@@ -135,6 +135,99 @@
   padding: 12px;
 }
 
+/* Date Filter */
+.date-input {
+  flex: 1;
+  max-width: 250px;
+  padding: 14px 20px;
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 12px;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  color-scheme: dark;
+}
+
+.date-input:hover {
+  border-color: rgba(139, 92, 246, 0.5);
+  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.3);
+}
+
+.date-input:focus {
+  border-color: rgba(139, 92, 246, 0.7);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+}
+
+.clear-date-btn {
+  padding: 14px 24px;
+  background: rgba(236, 72, 153, 0.15);
+  border: 1px solid rgba(236, 72, 153, 0.3);
+  border-radius: 12px;
+  color: rgba(236, 72, 153, 0.9);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.clear-date-btn:hover {
+  background: rgba(236, 72, 153, 0.25);
+  border-color: rgba(236, 72, 153, 0.5);
+  box-shadow: 0 4px 16px rgba(236, 72, 153, 0.3);
+  transform: translateY(-2px);
+}
+
+.clear-date-btn:active {
+  transform: translateY(0);
+}
+
+/* Round Section */
+.round-section {
+  margin-bottom: 56px;
+  animation: fadeInDown 0.8s ease;
+}
+
+.round-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  padding: 20px 28px;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(59, 130, 246, 0.2) 100%);
+  border: 2px solid rgba(139, 92, 246, 0.4);
+  border-radius: 16px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 8px 32px rgba(139, 92, 246, 0.3);
+}
+
+.round-header h3 {
+  font-size: 26px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  text-shadow: 0 2px 8px rgba(139, 92, 246, 0.5);
+}
+
+.round-count {
+  padding: 8px 16px;
+  background: rgba(139, 92, 246, 0.3);
+  border: 1px solid rgba(139, 92, 246, 0.5);
+  border-radius: 20px;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
 /* Today's Events Section */
 .today-section {
   margin-bottom: 48px;
@@ -289,6 +382,29 @@
     width: 100%;
     padding: 12px 16px;
     font-size: 14px;
+  }
+
+  .date-input {
+    max-width: 100%;
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+
+  .clear-date-btn {
+    width: 100%;
+    padding: 12px 16px;
+  }
+
+  .round-header {
+    padding: 16px 20px;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .round-header h3 {
+    font-size: 22px;
   }
 
   .events-grid {

@@ -6,6 +6,7 @@ import './Dashboard.css';
 const Dashboard = ({ events, selectedCategory, categories }) => {
   const [selectedLeague, setSelectedLeague] = useState('all');
   const [selectedSportFilter, setSelectedSportFilter] = useState('all');
+  const [selectedDate, setSelectedDate] = useState('');
 
   // Get today's date (without time)
   const today = new Date();
@@ -22,6 +23,29 @@ const Dashboard = ({ events, selectedCategory, categories }) => {
   const isPastEvent = (dateString, timeString) => {
     const eventDateTime = new Date(dateString + ' ' + timeString);
     return eventDateTime < now;
+  };
+
+  // Function to get round number from event ID (for Brasileirão)
+  const getRoundNumber = (eventId) => {
+    if (eventId >= 1001 && eventId <= 1380) {
+      return Math.floor((eventId - 1001) / 10) + 1;
+    }
+    return null;
+  };
+
+  // Function to group events by round
+  const groupByRound = (events) => {
+    const groups = {};
+    events.forEach(event => {
+      const round = getRoundNumber(event.id);
+      if (round) {
+        if (!groups[round]) {
+          groups[round] = [];
+        }
+        groups[round].push(event);
+      }
+    });
+    return groups;
   };
 
   // Filter by category (sport type)
@@ -44,8 +68,13 @@ const Dashboard = ({ events, selectedCategory, categories }) => {
     ? sportFilteredEvents.filter(event => event.league === selectedLeague)
     : sportFilteredEvents;
 
+  // Filter by date (when calendar is used)
+  const dateFilteredEvents = selectedDate
+    ? leagueFilteredEvents.filter(event => event.date === selectedDate)
+    : leagueFilteredEvents;
+
   // Sort all events by date and time
-  const sortedEvents = [...leagueFilteredEvents].sort((a, b) => {
+  const sortedEvents = [...dateFilteredEvents].sort((a, b) => {
     const dateA = new Date(a.date + ' ' + a.time);
     const dateB = new Date(b.date + ' ' + b.time);
     return dateA - dateB;
@@ -66,10 +95,17 @@ const Dashboard = ({ events, selectedCategory, categories }) => {
   React.useEffect(() => {
     setSelectedLeague('all');
     setSelectedSportFilter('all');
+    setSelectedDate('');
   }, [selectedCategory]);
 
   // Get available sports for filtering (excluding 'todos')
   const sportsForFilter = categories.filter(cat => cat.id !== 'todos');
+
+  // Check if we should display by rounds (Brasileirão Série A without date filter)
+  const shouldDisplayByRounds = selectedLeague === 'Brasileirão Série A' && !selectedDate;
+
+  // Group events by round if needed
+  const eventsByRound = shouldDisplayByRounds ? groupByRound(sortedEvents) : {};
 
   return (
     <main className="dashboard">
@@ -119,6 +155,28 @@ const Dashboard = ({ events, selectedCategory, categories }) => {
         </div>
       )}
 
+      {/* Date filter for football */}
+      {selectedCategory === 'futebol' && (
+        <div className="league-filter">
+          <label htmlFor="date-filter">📅 Filtrar por Data:</label>
+          <input
+            type="date"
+            id="date-filter"
+            value={selectedDate}
+            onChange={(e) => setSelectedDate(e.target.value)}
+            className="date-input"
+          />
+          {selectedDate && (
+            <button
+              onClick={() => setSelectedDate('')}
+              className="clear-date-btn"
+            >
+              Limpar
+            </button>
+          )}
+        </div>
+      )}
+
       {/* Today's Events Highlight Section */}
       {todayEvents.length > 0 && (
         <div className="today-section">
@@ -139,23 +197,54 @@ const Dashboard = ({ events, selectedCategory, categories }) => {
         </div>
       )}
 
-      {/* Other Events */}
-      {otherEvents.length > 0 && (
+      {/* Other Events - Display by rounds for Brasileirão Série A */}
+      {shouldDisplayByRounds ? (
         <>
-          {todayEvents.length > 0 && (
-            <div className="section-divider">
-              <h3>📅 Próximos Eventos</h3>
-            </div>
+          {Object.keys(eventsByRound).length > 0 && (
+            <>
+              {Object.keys(eventsByRound).sort((a, b) => Number(a) - Number(b)).map(round => (
+                <div key={round} className="round-section">
+                  <div className="round-header">
+                    <h3>⚽ Rodada {round}</h3>
+                    <span className="round-count">
+                      {eventsByRound[round].length} {eventsByRound[round].length === 1 ? 'jogo' : 'jogos'}
+                    </span>
+                  </div>
+                  <div className="events-grid">
+                    {eventsByRound[round].map(event => (
+                      <EventCard
+                        key={event.id}
+                        event={event}
+                        categoryIcon={getCategoryIcon(event.sport)}
+                        isToday={isToday(event.date)}
+                      />
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </>
           )}
-          <div className="events-grid">
-            {otherEvents.map(event => (
-              <EventCard
-                key={event.id}
-                event={event}
-                categoryIcon={getCategoryIcon(event.sport)}
-              />
-            ))}
-          </div>
+        </>
+      ) : (
+        <>
+          {otherEvents.length > 0 && (
+            <>
+              {todayEvents.length > 0 && (
+                <div className="section-divider">
+                  <h3>📅 Próximos Eventos</h3>
+                </div>
+              )}
+              <div className="events-grid">
+                {otherEvents.map(event => (
+                  <EventCard
+                    key={event.id}
+                    event={event}
+                    categoryIcon={getCategoryIcon(event.sport)}
+                  />
+                ))}
+              </div>
+            </>
+          )}
         </>
       )}
 
